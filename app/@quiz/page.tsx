@@ -1,59 +1,61 @@
-'use client';
-import React, { useEffect, useState } from 'react';
+'use client'
+import React, { useEffect, useState } from 'react'
 
-import useQuizStore from '../store';
-import { cn } from '@/lib/utils';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import useQuizStore from '../store'
+import { cn } from '@/lib/utils'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Player, Controls } from '@lottiefiles/react-lottie-player'
 
 export default function Quiz() {
-  const [questions, setQuestions] = useState<any>([]);
-  const [answear, setAnswear] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState<any>([])
+  const [answear, setAnswear] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const config = useQuizStore((state: any) => state.config);
-  const addScore = useQuizStore((state: any) => state.addScore);
-  // const { numberOfQuestion, category, level, type, status, score } = config;
+  const config = useQuizStore((state: any) => state.config)
+  const addScore = useQuizStore((state: any) => state.addScore)
+  const { numberOfQuestion, category, level, type, status, score } = config
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const quizFetch = async () => {
-    setLoading(true);
+    setLoading(true)
     const { results } = await (
       await fetch(
         `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`,
       )
-    ).json();
+    ).json()
     let shuffleResults = results.map((result: any) => {
       let value = [...result.incorrect_answers, result.correct_answer]
         .map(value => ({ value, sort: Math.random() }))
         .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value);
-      result.answers = [...value];
+        .map(({ value }) => value)
+      result.answers = [...value]
 
-      return result;
-    });
+      return result
+    })
 
     setTimeout(() => {
-      setQuestions([...shuffleResults]);
-      setLoading(false);
-    }, 300);
-  };
+      setQuestions([...shuffleResults])
+      setLoading(false)
+    }, 300)
+  }
 
   useEffect(() => {
-    quizFetch();
-  }, []);
+    quizFetch()
+  }, [numberOfQuestion, category, level, type, status])
+
   const handleNext = () => {
-    let remaningQuestions = [...questions];
-    remaningQuestions.shift();
-    setQuestions([...remaningQuestions]);
-    setAnswear('');
-  };
+    let remaningQuestions = [...questions]
+    remaningQuestions.shift()
+    setQuestions([...remaningQuestions])
+    setAnswear('')
+  }
   const checkAnswer = (answer: string) => {
     if (answer === questions[0]?.correct_answer) {
-      addScore(0);
+      addScore(0)
     }
 
-    setAnswear(questions[0]?.correct_answer);
-  };
+    setAnswear(questions[0]?.correct_answer)
+  }
 
   return (
     <section className="flex flex-col items-center justify-center mt-10">
@@ -75,7 +77,7 @@ export default function Quiz() {
         {loading && !questions.length && (
           <div className="flex items-center justify-center gap-5">
             <Skeleton className="w-[400px] h-[50px] rounded-lg" />
-            <Skeleton className="w-[400px] h-[50px] rounded-lg" />
+            <Skeleton className="w-[400px] h-[500px] rounded-lg" />
           </div>
         )}
         {!loading && !questions.length && (
@@ -133,5 +135,5 @@ export default function Quiz() {
         ) : null}
       </section>
     </section>
-  );
+  )
 }
