@@ -22,7 +22,11 @@ export default function RootLayout({
   let render = config.status === 'start' ? quiz : children;
   return (
     <html lang="en">
-      <body className={inter.className}>{render}</body>
+      <body
+      // className={inter.className}
+      >
+        {render}
+      </body>
     </html>
   );
 }
