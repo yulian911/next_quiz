@@ -60,7 +60,7 @@ export default function Quiz() {
   return (
     <section className="flex flex-col items-center justify-center mt-10">
       {questions.length ? (
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Question Number{' '}
           <span className="text-blue-600 dark:text-blue-500">
             #{config.numberOfQuestion - questions?.length + 1}
@@ -108,7 +108,7 @@ export default function Quiz() {
               onClick={() => checkAnswer(el)}
               type="button"
               className={cn(
-                'w-[33%] py-3.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-blue-600 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 shadow-blue-200  shadow-2xl',
+                'w-[43%]  py-3.5 px-5 mr-1 mb-1 text-[9px] md:text-[13px] font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-blue-600 hover:text-white focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 shadow-blue-200  shadow-2xl',
                 {
                   'bg-red-900': el !== answear && answear,
                   'bg-green-700': el === answear && answear,
