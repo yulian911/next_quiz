@@ -1,15 +1,13 @@
-'use client'
-import Button from '@/components/Button'
-import DropDownOption from '@/components/DropDownOptions'
-import useQuizStore from './store'
+'use client';
+import Button from '@/components/Button';
+import DropDownOption from '@/components/DropDownOptions';
+import useQuizStore from './store';
 
 export default function Home() {
-  const quizConfig = useQuizStore(state => state.config)
-  const addNumberOfQuestion = useQuizStore(state => state.addNumberOfQuestion)
+  const addNumberOfQuestion = useQuizStore((state: any) => state.addNumberOfQuestion);
 
-  console.log(quizConfig)
   return (
-    <section className="flex flex-col justify-center items-center">
+    <section className="flex flex-col items-center justify-center">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Welcome to trivia quiz
       </h1>
@@ -31,12 +29,12 @@ export default function Home() {
             required
           />
         </div>
-        <div className="flex  flex-col justify-center items-center">
+        <div className="flex flex-col items-center justify-center">
           <DropDownOption />
 
           <Button />
         </div>
       </section>
     </section>
-  )
+  );
 }
